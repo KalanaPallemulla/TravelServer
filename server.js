@@ -1,16 +1,19 @@
 const express = require("express");
-const Database = require("./database/dbConnection");
-const fs = require("fs");
-require("dotenv").config();
+const config = require("config");
+const connectDB = require("./config/db");
+const cors = require("cors");
+const morgan = require("morgan");
 
 const app = express();
+
 app.use(express.json());
-Database();
+app.use(cors());
+app.use(morgan("dev"));
 
-fs.readdirSync("./routers").map((r) =>
-  app.use("/api", require(`./routers/${r}`))
-);
+connectDB();
 
-port = process.env.PORT || 8000;
+PORT = config.get("PORT") || 8000;
 
-app.listen(port, () => console.log(`Server is running on port: ${port}`));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
