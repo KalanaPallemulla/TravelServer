@@ -7,6 +7,29 @@ const cartSchema = new Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  province: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  email: { type: String },
+  location: [
+    {
+      long: { type: String, required: true },
+      lat: { type: String, required: true },
+    },
+  ],
   serviceType: [
     {
       service: {

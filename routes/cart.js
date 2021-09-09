@@ -4,6 +4,13 @@ const Cart = require("../models/Cart");
 router.post("/cart", async (req, res) => {
   let cart = new Cart({
     name: req.body.name,
+    address: req.body.address,
+    city: req.body.city,
+    province: req.body.name,
+    phone: req.body.name,
+    email: req.body.name,
+    long: req.body.name,
+    lat: req.body.lat,
     serviceType: req.body.serviceType,
   });
   try {
