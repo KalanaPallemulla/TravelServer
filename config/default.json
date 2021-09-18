@@ -1,5 +1,0 @@
-{
-  "PORT": "8000",
-  "mongoURI": "mongodb+srv://kalana:kalana@firstdb.wdpfx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "kjaskjaskjdanksjdnaksjdakj"
-}
