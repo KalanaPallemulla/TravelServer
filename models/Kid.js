@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const womenSchema = new Schema(
+const kidSchema = new Schema(
   {
     name: {
       type: String,
@@ -33,7 +33,7 @@ const womenSchema = new Schema(
     },
     time: {
       type: String,
-      required: true,
+      required: "Time is required",
     },
     location: {
       type: String,
@@ -43,4 +43,4 @@ const womenSchema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Women", womenSchema);
+export default mongoose.model("Kids", kidSchema);

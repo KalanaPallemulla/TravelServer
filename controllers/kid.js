@@ -1,4 +1,4 @@
-import Women from "../models/Women";
+import Kid from "../models/Kid";
 import fs from "fs";
 
 export const addService = async (req, res) => {
@@ -8,7 +8,7 @@ export const addService = async (req, res) => {
     const files = req.files;
     const fields = req.fields;
 
-    let add = new Women(fields);
+    let add = new Kid(fields);
 
     if (!fields.name || fields.name === "" || fields.name == null) {
       return res.status(400).send("Name is required");
@@ -45,8 +45,17 @@ export const addService = async (req, res) => {
 
 export const getServices = async (req, res) => {
   try {
-    const services = await Women.find().exec();
+    const services = await Kid.find().exec();
     res.json(services);
+  } catch (err) {
+    console.log("Server Error ==> ", err);
+  }
+};
+
+export const getKidById = async (req, res) => {
+  try {
+    const service = await Kid.findById(req.params.kidId).exec();
+    res.json(service);
   } catch (err) {
     console.log("Server Error ==> ", err);
   }
