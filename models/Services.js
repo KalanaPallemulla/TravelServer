@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const womenSchema = new Schema(
+const serviceSchema = new Schema(
   {
     name: {
       type: String,
@@ -51,4 +51,4 @@ const womenSchema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Women", womenSchema);
+export default mongoose.model("Service", serviceSchema);
