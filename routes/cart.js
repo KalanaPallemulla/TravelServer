@@ -1,50 +1,62 @@
 import express from "express";
 import formidable from "express-formidable";
 import Cart from "../models/Cart";
-
 const router = express.Router();
 
-router.post("/addtocartmen", async (req, res) => {
+router.post("/cart", async (req, res) => {
   const data = req.body;
+  console.log(req.body);
   try {
     let cart = new Cart(data);
 
-    cart.save((err, result) => {
-      if (err) {
-        return res.status(400).send(err);
-      }
-      res.json(result);
+    cart.save((err, results) => {
+      if (err) return res.status(400).send(err.message);
+      return res.send(results);
     });
-  } catch (error) {
-    console.log("error==>", error);
+  } catch (err) {
+    console.log(err);
   }
 });
 
-router.get("/menCart", async (req, res) => {
+router.get("/cart", async (req, res) => {
   try {
-    let cart = await Cart.find({}).exec();
-    res.json(cart);
-    // cart.items.map(async (service) => {
-    //   let men = await Men.findById(service.service);
-    //   res.json(service);
-    // });
+    let cart = await Cart.find().sort("-createdAt").exec();
+    res.send(cart);
   } catch (err) {
     console.log("error==>", err);
   }
 });
 
-// router.get("/menCartId/:id", async (req, res) => {
-//   try {
-//     let cart = await Cart.findById(req.params.id);
+router.put("/cartInProcessing/:id", async (req, res) => {
+  console.log("AWA");
+  try {
+    let cart = await Cart.findByIdAndUpdate(req.params.id, {
+      processing: 1,
+    });
+    res.json(cart);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
-//     cart.items.map(async (service) => {
-//       let men = await Men.findById(service.service);
+router.put("/cartInDone/:id", async (req, res) => {
+  try {
+    let cart = await Cart.findByIdAndUpdate(req.params.id, {
+      processing: 2,
+    });
+    res.json(cart);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
-//       res.json(cart + men);
-//     });
-//   } catch (err) {
-//     console.log("error==>", err);
-//   }
-// });
+router.delete("/cart/:id", async (req, res) => {
+  try {
+    await Cart.findByIdAndDelete(req.params.id);
+    res.send("Done");
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 module.exports = router;
